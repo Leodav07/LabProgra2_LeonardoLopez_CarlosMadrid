@@ -1,11 +1,16 @@
 package labprogra2_leonardolopez_carlosmadrid;
 
+import java.awt.Color;
+import javax.swing.JButton;
+
 public class PalindromoAir {
 
     public ClaseTicket asientos[];
+    private JButton[] botones;
 
-    public PalindromoAir() {
-        asientos = new ClaseTicket[30];
+    public PalindromoAir(JButton[] botones) {
+        this.asientos = new ClaseTicket[30];
+        this.botones = botones;
     }
 
     public int firstAvailable(int i) {
@@ -59,7 +64,7 @@ public class PalindromoAir {
         return pasajero + printPassengers(i + 1);
     }
 
-    private double income(int i) {
+    public double income(int i) {
         double sumaIngresos = 0;
         if (i >= asientos.length) {
             return 0;
@@ -72,10 +77,15 @@ public class PalindromoAir {
     }
 
     private void reset(int i) {
-        if (i > asientos.length) {
+        if (i >= asientos.length) {
             return;
         }
+
         asientos[i] = null;
+        if (botones != null && botones[i] != null) {
+            botones[i].setBackground(Color.GREEN);
+        }
+
         reset(i + 1);
     }
 
@@ -85,26 +95,5 @@ public class PalindromoAir {
         reset(0);
         return "El ingreso total es de: " + totalRecaudado + " Lps. \n"
                 + "Nota: Los asientos han sido reestablecidos.";
-    }
-
-    public String sellTicket(String nombrePasajero) {
-        int asientoDisponible;
-        asientoDisponible = firstAvailable(0);
-        if (asientoDisponible == -1) {
-            return "Todos los asientos están ocupados. No hay asientos disponibles.";
-        }
-
-        ClaseTicket asientoNuevo = new ClaseTicket(nombrePasajero, 100, isPalindromo(nombrePasajero));
-        asientos[asientoDisponible] = asientoNuevo;
-        String descuento = "";
-        if(isPalindromo(nombrePasajero)){
-           descuento = "Descuento del 20% aplicado por nombre palíndromo.";
-        }
-        
-        return descuento + "Ticket vendido exitosamente\n"
-                + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
-                "Nombre de Pasajero: "+nombrePasajero+"\n"+
-                "Valor de Ticket: 100 Lps."+ 
-                "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
     }
 }

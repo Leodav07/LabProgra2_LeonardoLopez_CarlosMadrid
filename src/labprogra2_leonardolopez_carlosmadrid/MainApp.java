@@ -7,7 +7,8 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        PalindromoAir palindromo = new PalindromoAir();
+        JButton[] botonesAsientos = new JButton[30];
+        PalindromoAir palindromo = new PalindromoAir(botonesAsientos);
 
         palindromo.asientos[0] = new ClaseTicket("Fernando", 100, false);
         palindromo.asientos[1] = new ClaseTicket("Ana", 100, true);
@@ -25,29 +26,34 @@ public class MainApp {
         JButton srcpassengers = new JButton("Search Passengers");
 
         frame.setLayout(null);
-        frame.setSize(1000, 600);
+        frame.setSize(1100, 600);
         frame.setTitle("Recursividad");
         frame.setLocationRelativeTo(null);
 
-        label.setBounds(650, -50, 300, 250);
+        label.setBounds(620, -50, 300, 250);
         label.setFont(new Font("Kefa", Font.BOLD, 24));
 
-        pasajero.setBounds(648, 90, 200, 35);
+        pasajero.setBounds(618, 90, 200, 35);
         pasajero.setFont(new Font("Kefa", Font.PLAIN, 18));
 
-        sellticket.setBounds(648, 140, 150, 50);
+        sellticket.setBounds(618, 140, 190, 50);
         sellticket.setFont(new Font("Kefa", Font.BOLD, 20));
         sellticket.setForeground(Color.GREEN);
 
-        cancelticket.setBounds(648, 200, 150, 50);
+        cancelticket.setBounds(618, 200, 190, 50);
         cancelticket.setFont(new Font("Kefa", Font.BOLD, 20));
         cancelticket.setForeground(Color.RED);
 
-        dispatch.setBounds(648, 260, 150, 50);
+        dispatch.setBounds(618, 260, 190, 50);
         dispatch.setFont(new Font("Kefa", Font.BOLD, 20));
         dispatch.setForeground(Color.BLUE);
 
-        prtpassengers.setBounds(800, 140, 150, 50);
+        dispatch.addActionListener(e -> {
+            String mensaje = palindromo.dispatch();
+            JOptionPane.showMessageDialog(null, mensaje, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        prtpassengers.setBounds(810, 140, 190, 50);
         prtpassengers.setFont(new Font("Kefa", Font.BOLD, 16));
         prtpassengers.setForeground(Color.MAGENTA);
 
@@ -65,37 +71,50 @@ public class MainApp {
             }
         });
 
-        vwincomes.setBounds(800, 200, 150, 50);
+        vwincomes.setBounds(810, 200, 190, 50);
         vwincomes.setFont(new Font("Kefa", Font.BOLD, 20));
         vwincomes.setForeground(Color.ORANGE);
+        
+        vwincomes.addActionListener(e -> {
+            double cantidad = palindromo.income(0);
+            String mensaje = String.format("Ingresos Generados: Lps.%.2f", cantidad);
+            JOptionPane.showMessageDialog(null, mensaje, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+        });
 
-        srcpassengers.setBounds(800, 260, 150, 50);
+        srcpassengers.setBounds(810, 260, 190, 50);
         srcpassengers.setFont(new Font("Kefa", Font.BOLD, 15));
         srcpassengers.setForeground(Color.cyan);
 
         srcpassengers.addActionListener(e -> {
-            String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del pasajero:");
-            if (nombre != null && !nombre.trim().isEmpty()) {
-                int pos = palindromo.searchPassenger(nombre, 0);
+            if (pasajero.getText() != null && !pasajero.getText().trim().isEmpty()) {
+                int pos = palindromo.searchPassenger(pasajero.getText(), 0);
                 if (pos != -1) {
-                    ClaseTicket ticket = palindromo.asientos[pos];
-                    JOptionPane.showMessageDialog(null, "Pasajero encontrado en el asiento " + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " esta en el asiento #" + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pasajero no encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " no fue encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Debe de llenar los campos.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 5; c++) {
+        int botones = 0;
+        int numeros = 1;
+
+        for (int c = 0; c < 5; c++) {
+            for (int r = 0; r < 6; r++) {
                 JButton asiento = new JButton();
                 asiento.setBounds(50 + r * 90, 50 + c * 90, 80, 80);
                 asiento.setOpaque(true);
                 asiento.setBackground(Color.GREEN);
                 asiento.setBorderPainted(false);
+                asiento.setFont(new Font("Kefa", Font.BOLD, 15));
+                asiento.setText(String.valueOf(numeros));
+                numeros++;
+
                 frame.add(asiento);
+                botonesAsientos[botones] = asiento;
+                botones++;
             }
         }
 
