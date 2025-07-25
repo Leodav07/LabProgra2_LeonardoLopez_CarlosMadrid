@@ -1,11 +1,16 @@
 package labprogra2_leonardolopez_carlosmadrid;
 
+import java.awt.Color;
+import javax.swing.JButton;
+
 public class PalindromoAir {
 
     public ClaseTicket asientos[];
+    private JButton[] botones;
 
-    public PalindromoAir() {
-        asientos = new ClaseTicket[30];
+    public PalindromoAir(JButton[] botones) {
+        this.asientos = new ClaseTicket[30];
+        this.botones = botones;
     }
 
     public int firstAvailable(int i) {
@@ -58,33 +63,37 @@ public class PalindromoAir {
         }
         return pasajero + printPassengers(i + 1);
     }
-    
-    private double income(int i){
+
+    public double income(int i) {
         double sumaIngresos = 0;
-        if(i>=asientos.length){
+        if (i >= asientos.length) {
             return 0;
         }
-        
-       if(asientos[i] != null){
-           sumaIngresos = asientos[i].getFinalAmount();
-       }
-       return sumaIngresos + income(i+1);
+
+        if (asientos[i] != null) {
+            sumaIngresos = asientos[i].getFinalAmount();
+        }
+        return sumaIngresos + income(i + 1);
     }
-    
-    
-    private void reset(int i){
-       if(i >asientos.length){
-           return;
-       }
+
+    private void reset(int i) {
+        if (i >= asientos.length) {
+            return;
+        }
+
         asientos[i] = null;
-        reset(i+1);
+        if (botones != null && botones[i] != null) {
+            botones[i].setBackground(Color.GREEN);
+        }
+
+        reset(i + 1);
     }
-    
-    public String dispatch(){
+
+    public String dispatch() {
         double totalRecaudado;
         totalRecaudado = income(0);
         reset(0);
-        return "El ingreso total es de: "+ totalRecaudado+" Lps. \n"
+        return "El ingreso total es de: " + totalRecaudado + " Lps. \n"
                 + "Nota: Los asientos han sido reestablecidos.";
     }
 }

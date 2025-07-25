@@ -7,7 +7,8 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        PalindromoAir palindromo = new PalindromoAir();
+        JButton[] botonesAsientos = new JButton[30];
+        PalindromoAir palindromo = new PalindromoAir(botonesAsientos);
 
         palindromo.asientos[0] = new ClaseTicket("Fernando", 100, false);
         palindromo.asientos[1] = new ClaseTicket("Ana", 100, true);
@@ -47,6 +48,11 @@ public class MainApp {
         dispatch.setFont(new Font("Kefa", Font.BOLD, 20));
         dispatch.setForeground(Color.BLUE);
 
+        dispatch.addActionListener(e -> {
+            String mensaje = palindromo.dispatch();
+            JOptionPane.showMessageDialog(null, mensaje, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+        });
+
         prtpassengers.setBounds(810, 140, 190, 50);
         prtpassengers.setFont(new Font("Kefa", Font.BOLD, 16));
         prtpassengers.setForeground(Color.MAGENTA);
@@ -68,6 +74,12 @@ public class MainApp {
         vwincomes.setBounds(810, 200, 190, 50);
         vwincomes.setFont(new Font("Kefa", Font.BOLD, 20));
         vwincomes.setForeground(Color.ORANGE);
+        
+        vwincomes.addActionListener(e -> {
+            double cantidad = palindromo.income(0);
+            String mensaje = String.format("Ingresos Generados: Lps.%.2f", cantidad);
+            JOptionPane.showMessageDialog(null, mensaje, "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+        });
 
         srcpassengers.setBounds(810, 260, 190, 50);
         srcpassengers.setFont(new Font("Kefa", Font.BOLD, 15));
@@ -77,23 +89,32 @@ public class MainApp {
             if (pasajero.getText() != null && !pasajero.getText().trim().isEmpty()) {
                 int pos = palindromo.searchPassenger(pasajero.getText(), 0);
                 if (pos != -1) {
-                    JOptionPane.showMessageDialog(null, "El pasajero "+pasajero.getText()+" esta en el asiento #" + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " esta en el asiento #" + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El pasajero "+pasajero.getText()+" no fue encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " no fue encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Debe de llenar los campos.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
-        for (int r = 0; r < 6; r++) {
-            for (int c = 0; c < 5; c++) {
+        int botones = 0;
+        int numeros = 1;
+
+        for (int c = 0; c < 5; c++) {
+            for (int r = 0; r < 6; r++) {
                 JButton asiento = new JButton();
                 asiento.setBounds(50 + r * 90, 50 + c * 90, 80, 80);
                 asiento.setOpaque(true);
                 asiento.setBackground(Color.GREEN);
                 asiento.setBorderPainted(false);
+                asiento.setFont(new Font("Kefa", Font.BOLD, 15));
+                asiento.setText(String.valueOf(numeros));
+                numeros++;
+
                 frame.add(asiento);
+                botonesAsientos[botones] = asiento;
+                botones++;
             }
         }
 
