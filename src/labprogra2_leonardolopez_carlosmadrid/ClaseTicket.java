@@ -38,10 +38,10 @@ public class ClaseTicket {
     }
     
     public String print(){
-        return "Nombre Pasajero: " + nombrePasajero + "\n" +
+        return "\nNombre Pasajero: " + nombrePasajero + "\n" +
                 "Monto Original: " + montoOriginalT + "\n" +
                 "Monto Final: " + montoFinalT + "\n" +
-                "Es Palindromo: "+ (isPalindromo ? "Si" : "No");
+                "Es Palindromo: "+ (isPalindromo ? "Si\n" : "No\n");
     }
 
 }

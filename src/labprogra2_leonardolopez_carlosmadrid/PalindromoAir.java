@@ -2,7 +2,7 @@ package labprogra2_leonardolopez_carlosmadrid;
 
 public class PalindromoAir {
 
-    private static ClaseTicket asientos[];
+    public ClaseTicket asientos[];
 
     public PalindromoAir() {
         asientos = new ClaseTicket[30];
@@ -48,13 +48,13 @@ public class PalindromoAir {
         return isPalindromoVerificacion(nombreMinus, 0, nombrePasajero.length() - 1);
     }
 
-    public String printPassengers(int i){
-        if(i>= asientos.length){
+    public String printPassengers(int i) {
+        if (i >= asientos.length) {
             return "";
         }
-        String pasajero="";
-        if(asientos[i] != null){
-         pasajero = "Asiento N. "+(i+1)+": "+ asientos[i].print()+"\n";
+        String pasajero = "";
+        if (asientos[i] != null) {
+            pasajero = "Asiento N. " + (i + 1) + ": " + asientos[i].print() + "\n";
         }
         return pasajero + printPassengers(i + 1);
     }

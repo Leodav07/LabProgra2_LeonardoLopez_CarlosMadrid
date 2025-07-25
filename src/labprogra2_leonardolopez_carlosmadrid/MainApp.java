@@ -8,6 +8,11 @@ public class MainApp {
     public static void main(String[] args) {
 
         PalindromoAir palindromo = new PalindromoAir();
+        
+        palindromo.asientos[0] = new ClaseTicket("Fernando", 100, false);
+        palindromo.asientos[1] = new ClaseTicket("Ana", 100, true);
+        palindromo.asientos[2] = new ClaseTicket("Leo", 100, false);
+        palindromo.asientos[3] = new ClaseTicket("Samuel", 100, false);
 
         JFrame frame = new JFrame();
         JLabel label = new JLabel("Nombre del Pasajero");
@@ -45,6 +50,20 @@ public class MainApp {
         prtpassengers.setBounds(800, 140, 150, 50);
         prtpassengers.setFont(new Font("Kefa", Font.BOLD, 16));
         prtpassengers.setForeground(Color.MAGENTA);
+
+        prtpassengers.addActionListener(e -> {
+            String info = palindromo.printPassengers(0);
+            if (info.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "No hay pasajeros registrados.");
+            } else {
+                JTextArea area = new JTextArea(info);
+                area.setEditable(false);
+                JScrollPane scroll = new JScrollPane(area);
+                scroll.setPreferredSize(new Dimension(400, 300));
+
+                JOptionPane.showMessageDialog(frame, scroll, "Lista de Pasajeros", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         vwincomes.setBounds(800, 200, 150, 50);
         vwincomes.setFont(new Font("Kefa", Font.BOLD, 20));
