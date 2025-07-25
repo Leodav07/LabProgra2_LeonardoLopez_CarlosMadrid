@@ -111,10 +111,10 @@ public class PalindromoAir {
            descuento = "Descuento del 20% aplicado por nombre palíndromo.";
         }
         
-        return descuento + "Ticket vendido exitosamente\n"
-                + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
+        botones[asientoDisponible].setBackground(Color.red);
+        return descuento + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
                 "Nombre de Pasajero: "+nombrePasajero+"\n"+
-                "Valor de Ticket: 100 Lps."+ 
+                "Valor de Ticket: 100 Lps."+"\n"+
                 "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
     }
     

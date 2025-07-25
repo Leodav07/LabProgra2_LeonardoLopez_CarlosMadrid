@@ -10,11 +10,6 @@ public class MainApp {
         JButton[] botonesAsientos = new JButton[30];
         PalindromoAir palindromo = new PalindromoAir(botonesAsientos);
 
-        palindromo.asientos[0] = new ClaseTicket("Fernando", 100, false);
-        palindromo.asientos[1] = new ClaseTicket("Ana", 100, true);
-        palindromo.asientos[2] = new ClaseTicket("Leo", 100, false);
-        palindromo.asientos[3] = new ClaseTicket("Samuel", 100, false);
-
         JFrame frame = new JFrame();
         JLabel label = new JLabel("Nombre del Pasajero");
         JTextField pasajero = new JTextField();
@@ -39,6 +34,15 @@ public class MainApp {
         sellticket.setBounds(618, 140, 190, 50);
         sellticket.setFont(new Font("Kefa", Font.BOLD, 20));
         sellticket.setForeground(Color.GREEN);
+
+        sellticket.addActionListener(e -> {
+            if (pasajero.getText() != null && !pasajero.getText().trim().isEmpty()) {
+                String mensaje = palindromo.sellTicket(pasajero.getText().trim());
+                JOptionPane.showMessageDialog(null, mensaje, "TICKET VENDIDO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         cancelticket.setBounds(618, 200, 190, 50);
         cancelticket.setFont(new Font("Kefa", Font.BOLD, 20));
@@ -74,7 +78,7 @@ public class MainApp {
         vwincomes.setBounds(810, 200, 190, 50);
         vwincomes.setFont(new Font("Kefa", Font.BOLD, 20));
         vwincomes.setForeground(Color.ORANGE);
-        
+
         vwincomes.addActionListener(e -> {
             double cantidad = palindromo.income(0);
             String mensaje = String.format("Ingresos Generados: Lps.%.2f", cantidad);
