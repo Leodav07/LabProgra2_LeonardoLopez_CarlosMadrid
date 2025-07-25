@@ -117,4 +117,19 @@ public class PalindromoAir {
                 "Valor de Ticket: 100 Lps."+ 
                 "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
     }
+    
+    public String cancelTicket(String name){
+        int asientoPasajero;
+        asientoPasajero = searchPassenger(name, 0);
+        if(asientoPasajero == -1){
+            return "Pasajero no encontrado.";
+                    
+        }else{
+            asientos[asientoPasajero] = null;
+            return """
+                   Asiento cancelado exitosamente.
+                   Nombre Pasajero: """+ name+ "\nAsiento Numero: "+ (asientoPasajero+1);
+        }
+        
+    }
 }
