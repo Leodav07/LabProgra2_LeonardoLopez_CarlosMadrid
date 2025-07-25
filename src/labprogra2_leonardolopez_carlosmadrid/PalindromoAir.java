@@ -58,4 +58,24 @@ public class PalindromoAir {
         }
         return pasajero + printPassengers(i + 1);
     }
+    
+    public double income(int i){
+        double sumaIngresos = 0;
+        if(i>=asientos.length){
+            return 0;
+        }
+        
+       if(asientos[i] != null){
+           sumaIngresos = asientos[i].getFinalAmount();
+       }
+       return sumaIngresos + income(i+1);
+    }
+    
+    public void reset(int i){
+       if(i >asientos.length){
+           return;
+       }
+        asientos[i] = null;
+        reset(i+1);
+    }
 }
