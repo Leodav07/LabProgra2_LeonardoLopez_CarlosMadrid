@@ -96,4 +96,25 @@ public class PalindromoAir {
         return "El ingreso total es de: " + totalRecaudado + " Lps. \n"
                 + "Nota: Los asientos han sido reestablecidos.";
     }
+    
+    public String sellTicket(String nombrePasajero) {
+        int asientoDisponible;
+        asientoDisponible = firstAvailable(0);
+        if (asientoDisponible == -1) {
+            return "Todos los asientos están ocupados. No hay asientos disponibles.";
+        }
+
+        ClaseTicket asientoNuevo = new ClaseTicket(nombrePasajero, 100, isPalindromo(nombrePasajero));
+        asientos[asientoDisponible] = asientoNuevo;
+        String descuento = "";
+        if(isPalindromo(nombrePasajero)){
+           descuento = "Descuento del 20% aplicado por nombre palíndromo.";
+        }
+        
+        return descuento + "Ticket vendido exitosamente\n"
+                + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
+                "Nombre de Pasajero: "+nombrePasajero+"\n"+
+                "Valor de Ticket: 100 Lps."+ 
+                "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
+    }
 }
