@@ -58,33 +58,53 @@ public class PalindromoAir {
         }
         return pasajero + printPassengers(i + 1);
     }
-    
-    private double income(int i){
+
+    private double income(int i) {
         double sumaIngresos = 0;
-        if(i>=asientos.length){
+        if (i >= asientos.length) {
             return 0;
         }
-        
-       if(asientos[i] != null){
-           sumaIngresos = asientos[i].getFinalAmount();
-       }
-       return sumaIngresos + income(i+1);
+
+        if (asientos[i] != null) {
+            sumaIngresos = asientos[i].getFinalAmount();
+        }
+        return sumaIngresos + income(i + 1);
     }
-    
-    
-    private void reset(int i){
-       if(i >asientos.length){
-           return;
-       }
+
+    private void reset(int i) {
+        if (i > asientos.length) {
+            return;
+        }
         asientos[i] = null;
-        reset(i+1);
+        reset(i + 1);
     }
-    
-    public String dispatch(){
+
+    public String dispatch() {
         double totalRecaudado;
         totalRecaudado = income(0);
         reset(0);
-        return "El ingreso total es de: "+ totalRecaudado+" Lps. \n"
+        return "El ingreso total es de: " + totalRecaudado + " Lps. \n"
                 + "Nota: Los asientos han sido reestablecidos.";
+    }
+
+    public String sellTicket(String nombrePasajero) {
+        int asientoDisponible;
+        asientoDisponible = firstAvailable(0);
+        if (asientoDisponible == -1) {
+            return "Todos los asientos están ocupados. No hay asientos disponibles.";
+        }
+
+        ClaseTicket asientoNuevo = new ClaseTicket(nombrePasajero, 100, isPalindromo(nombrePasajero));
+        asientos[asientoDisponible] = asientoNuevo;
+        String descuento = "";
+        if(isPalindromo(nombrePasajero)){
+           descuento = "Descuento del 20% aplicado por nombre palíndromo.";
+        }
+        
+        return descuento + "Ticket vendido exitosamente\n"
+                + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
+                "Nombre de Pasajero: "+nombrePasajero+"\n"+
+                "Valor de Ticket: 100 Lps."+ 
+                "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
     }
 }
