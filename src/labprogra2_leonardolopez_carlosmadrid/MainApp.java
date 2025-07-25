@@ -8,7 +8,7 @@ public class MainApp {
     public static void main(String[] args) {
 
         PalindromoAir palindromo = new PalindromoAir();
-        
+
         palindromo.asientos[0] = new ClaseTicket("Fernando", 100, false);
         palindromo.asientos[1] = new ClaseTicket("Ana", 100, true);
         palindromo.asientos[2] = new ClaseTicket("Leo", 100, false);
@@ -72,6 +72,21 @@ public class MainApp {
         srcpassengers.setBounds(800, 260, 150, 50);
         srcpassengers.setFont(new Font("Kefa", Font.BOLD, 15));
         srcpassengers.setForeground(Color.cyan);
+
+        srcpassengers.addActionListener(e -> {
+            String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre del pasajero:");
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                int pos = palindromo.searchPassenger(nombre, 0);
+                if (pos != -1) {
+                    ClaseTicket ticket = palindromo.asientos[pos];
+                    JOptionPane.showMessageDialog(null, "Pasajero encontrado en el asiento " + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Pasajero no encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         for (int r = 0; r < 6; r++) {
             for (int c = 0; c < 5; c++) {
