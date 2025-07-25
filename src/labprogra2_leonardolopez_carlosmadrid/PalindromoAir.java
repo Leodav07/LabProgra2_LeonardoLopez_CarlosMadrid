@@ -31,7 +31,7 @@ public class PalindromoAir {
         return searchPassenger(name, i + 1); //Si no lo encuentra busca con el mismo nombre, pero diferente asiento.
     }
 
-    private boolean isPalindromoDos(String nombrePasajero, int inicio, int fin) {
+    private boolean isPalindromoVerificacion(String nombrePasajero, int inicio, int fin) {
 
         if (inicio >= fin) {
             return true;
@@ -40,12 +40,22 @@ public class PalindromoAir {
             return false;
         }
 
-        return isPalindromoDos(nombrePasajero, inicio + 1, fin - 1);
+        return isPalindromoVerificacion(nombrePasajero, inicio + 1, fin - 1);
     }
 
     public boolean isPalindromo(String nombrePasajero) {
         String nombreMinus = nombrePasajero.toLowerCase();
-        return isPalindromoDos(nombreMinus, 0, nombrePasajero.length() - 1);
+        return isPalindromoVerificacion(nombreMinus, 0, nombrePasajero.length() - 1);
     }
 
+    public String printPassengers(int i){
+        if(i>= asientos.length){
+            return "";
+        }
+        String pasajero="";
+        if(asientos[i] != null){
+         pasajero = "Asiento N. "+(i+1)+": "+ asientos[i].print()+"\n";
+        }
+        return pasajero + printPassengers(i + 1);
+    }
 }
