@@ -39,15 +39,28 @@ public class MainApp {
             if (pasajero.getText() != null && !pasajero.getText().trim().isEmpty()) {
                 String mensaje = palindromo.sellTicket(pasajero.getText().trim());
                 JOptionPane.showMessageDialog(null, mensaje, "TICKET VENDIDO", JOptionPane.INFORMATION_MESSAGE);
+                pasajero.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                pasajero.setText("");
             }
         });
 
         cancelticket.setBounds(618, 200, 190, 50);
         cancelticket.setFont(new Font("Kefa", Font.BOLD, 20));
         cancelticket.setForeground(Color.RED);
-
+        
+        cancelticket.addActionListener(e -> {
+            if (pasajero.getText() != null && !pasajero.getText().trim().isEmpty()) {
+                String mensaje = palindromo.cancelTicket(pasajero.getText().trim());
+                JOptionPane.showMessageDialog(null, mensaje, "TICKET CANCELADO", JOptionPane.INFORMATION_MESSAGE);
+                pasajero.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un nombre válido.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                pasajero.setText("");
+            }
+        });
+        
         dispatch.setBounds(618, 260, 190, 50);
         dispatch.setFont(new Font("Kefa", Font.BOLD, 20));
         dispatch.setForeground(Color.BLUE);
@@ -94,11 +107,14 @@ public class MainApp {
                 int pos = palindromo.searchPassenger(pasajero.getText(), 0);
                 if (pos != -1) {
                     JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " esta en el asiento #" + (pos + 1), "INFORMACION", JOptionPane.INFORMATION_MESSAGE);
+                    pasajero.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "El pasajero " + pasajero.getText() + " no fue encontrado.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                    pasajero.setText("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Debe de llenar los campos.", "ADVERTENCIA", JOptionPane.INFORMATION_MESSAGE);
+                pasajero.setText("");
             }
         });
 

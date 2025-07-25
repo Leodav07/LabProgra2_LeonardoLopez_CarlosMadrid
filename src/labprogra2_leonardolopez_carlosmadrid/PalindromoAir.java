@@ -93,7 +93,7 @@ public class PalindromoAir {
         double totalRecaudado;
         totalRecaudado = income(0);
         reset(0);
-        return "El ingreso total es de: " + totalRecaudado + " Lps. \n"
+        return "El ingreso total es de: Lps." + totalRecaudado + " \n"
                 + "Nota: Los asientos han sido reestablecidos.";
     }
     
@@ -108,14 +108,14 @@ public class PalindromoAir {
         asientos[asientoDisponible] = asientoNuevo;
         String descuento = "";
         if(isPalindromo(nombrePasajero)){
-           descuento = "Descuento del 20% aplicado por nombre palíndromo.";
+           descuento = "Descuento del 20% aplicado por nombre palíndromo.\n";
         }
         
         botones[asientoDisponible].setBackground(Color.red);
-        return descuento + "Numero de Asiento: "+(asientoDisponible+1)+"\n"+
+        return descuento + "\nNumero de Asiento: "+(asientoDisponible+1)+"\n"+
                 "Nombre de Pasajero: "+nombrePasajero+"\n"+
-                "Valor de Ticket: 100 Lps."+"\n"+
-                "Monto Final Pagado: "+asientoNuevo.getFinalAmount();
+                "Valor de Ticket: Lps.100.00."+"\n"+
+                "Monto Final Pagado: Lps."+asientoNuevo.getFinalAmount();
     }
     
     public String cancelTicket(String name){
@@ -126,6 +126,7 @@ public class PalindromoAir {
                     
         }else{
             asientos[asientoPasajero] = null;
+            botones[asientoPasajero].setBackground(Color.green);
             return """
                    Asiento cancelado exitosamente.
                    Nombre Pasajero: """+ name+ "\nAsiento Numero: "+ (asientoPasajero+1);

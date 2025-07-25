@@ -39,8 +39,8 @@ public class ClaseTicket {
     
     public String print(){
         return "\nNombre Pasajero: " + nombrePasajero + "\n" +
-                "Monto Original: " + montoOriginalT + "\n" +
-                "Monto Final: " + montoFinalT + "\n" +
+                "Monto Original: Lps." + montoOriginalT + "\n" +
+                "Monto Final: Lps." + montoFinalT + "\n" +
                 "Es Palindromo: "+ (isPalindromo ? "Si\n" : "No\n");
     }
 
