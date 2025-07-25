@@ -59,7 +59,7 @@ public class PalindromoAir {
         return pasajero + printPassengers(i + 1);
     }
     
-    public double income(int i){
+    private double income(int i){
         double sumaIngresos = 0;
         if(i>=asientos.length){
             return 0;
@@ -71,11 +71,20 @@ public class PalindromoAir {
        return sumaIngresos + income(i+1);
     }
     
-    public void reset(int i){
+    
+    private void reset(int i){
        if(i >asientos.length){
            return;
        }
         asientos[i] = null;
         reset(i+1);
+    }
+    
+    public String dispatch(){
+        double totalRecaudado;
+        totalRecaudado = income(0);
+        reset(0);
+        return "El ingreso total es de: "+ totalRecaudado+" Lps. \n"
+                + "Nota: Los asientos han sido reestablecidos.";
     }
 }
